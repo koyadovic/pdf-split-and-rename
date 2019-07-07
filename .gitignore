@@ -1,3 +1,6 @@
+# pycharm
+\.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,3 +105,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# texts to search inside PDFs and proceed to rename
+pdf_split_texts
