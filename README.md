@@ -14,6 +14,8 @@ pip install -r requirements.txt
 ```
 
 # Use
+* First edit or create the file pdf_split_texts with all the employee names, one per line.
+* Second execute the tool using -f argument.
 ```bash
 python pdf_split.py -f file.pdf
 ```
