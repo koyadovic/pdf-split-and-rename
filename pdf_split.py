@@ -18,7 +18,15 @@ parser.add_argument('-f', '--file', type=str, help='PDF file to split')
 def _they_are_similar(text1, text2):
     sequence_matcher = difflib.SequenceMatcher(None, text1, text2)
     ratio = sequence_matcher.ratio()
-    return ratio > 0.5
+    return ratio > 0.7
+
+
+def _is_a_similar_string_inside_a_line(string, line):
+    for idx in range(len(line)):
+        possible_similar_string = line[idx:idx + len(string)]
+        if _they_are_similar(possible_similar_string, string):
+            return True
+    return False
 
 
 def _get_all_texts_found(pdf_filename):
@@ -31,9 +39,9 @@ def _try_to_rename(individual_pdfs_per_page, possible_texts):
     for pdf_filename in individual_pdfs_per_page:
         texts_found = _get_all_texts_found(pdf_filename)
         similarity_found = False
-        for text_found in texts_found:
+        for line in texts_found:
             for possible_text in possible_texts:
-                if _they_are_similar(text_found, possible_text):
+                if _is_a_similar_string_inside_a_line(possible_text, line):
                     os.rename(pdf_filename, f'{possible_text}.pdf')
                     similarity_found = True
                 if similarity_found:
