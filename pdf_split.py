@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 import PyPDF2
 import difflib
@@ -55,7 +57,7 @@ def _split_pdf(pdf_filename):
 
 def _get_possible_texts():
     pdf_split_texts_filename = 'pdf_split_texts'
-    if not os.path.isfile(pdf_split_texts_filename):
+    if not os.path.exists(pdf_split_texts_filename):
         open(pdf_split_texts_filename, 'a').close()
         return []
 
@@ -67,8 +69,8 @@ def _get_possible_texts():
 def main():
     args = parser.parse_args()
     pdf_filename = args.file
+    possible_texts = _get_possible_texts()
     if pdf_filename is not None:
-        possible_texts = _get_possible_texts()
         individual_pdfs_per_page = _split_pdf(pdf_filename)
         _try_to_rename(individual_pdfs_per_page, possible_texts)
     else:
